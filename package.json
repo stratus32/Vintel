@@ -1,0 +1,17 @@
+{
+  "name": "vintel",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app/index.js",
+    "dev": "ts-node --esm src/app/index.ts"
+  },
+  "dependencies": {
+    "typescript": "^5.4.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "@types/node": "^20.0.0"
+  }
+}

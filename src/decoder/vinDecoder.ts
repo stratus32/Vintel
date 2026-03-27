@@ -1,6 +1,6 @@
-import wmiMap from '../Vintel/src/data/wmi.json'
-import countryMap from '../src/data/countries.json'
-import yearMap from '../data/years.json'
+import wmiMap from '../data/wmi.json' with { type: 'json' }
+import countryMap from '../data/countries.json' with { type: 'json' }
+import yearMap from '../data/years.json' with { type: 'json' }
 
 export interface VINDecodeResult {
     raw: string
@@ -19,26 +19,24 @@ export function decodeVIN(vin: string): VINDecodeResult {
 
     return {
         raw: vin,
-        country: decodeCountry(vin[0]),
+        country: decodeCountry(vin.charAt(0)),
         manufacturer: decodeManufacturer(vin.slice(0, 3)),
-        year: decodeYear(vin[9]),
+        year: decodeYear(vin.charAt(9)),
         isValid: true
     }
 }
 
 function decodeCountry(char: string): string {
-
-    // Return the country based on char value, if lookup returns nothing then unknown
-    return countryMap[char] ?? 'Unknown'
+    const map = countryMap as Record<string, string>
+    return map[char] ?? 'Unknown'
 }
 
 function decodeManufacturer(wmi: string): string {
-
-    // Return the manufacturer based on wmi value, if lookup returns nothing then unknown
-    return wmiMap[wmi] ?? 'Unknown'
+    const map = wmiMap as Record<string, string>
+    return map[wmi] ?? 'Unknown'
 }
 
 function decodeYear(char: string): number {
-
-    return yearMap[char] ?? 0
+    const map = yearMap as Record<string, number>
+    return map[char] ?? 0
 }
